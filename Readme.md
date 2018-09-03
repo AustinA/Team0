@@ -3,7 +3,7 @@
 
 Using the object detection TensorFlow library to prioritize detected objects using lidar and video input
 
-###### PretrainedKittiObjectsDetectionExample
+##  PretrainedKittiObjectsDetectionExample
 
 Uses the pretrained RCNN model (graph) on the KITTI dataset from Tensor Flow's model zoo to read in images, and output those images with 
 bounding boxes around the identified objects.
