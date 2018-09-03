@@ -9,6 +9,7 @@ Uses the pretrained RCNN model (graph) on the KITTI dataset from Tensor Flow's m
 bounding boxes around the identified objects.
 
 For this project to work, download the KITTI trained RCNN model (graph), and unzip its content into the faster_rcnn_resnet101_kitti_2018_01_28 folder.
+The content should include a saved_model folder, checkpoint, frozen_inference_graph.pb, some .ckpt.in and .ckpt.m files, and pipeline.config.
 Alternatively, the MODEL_NAME variable in main.py can be modified to point to the desired directory of the frozen graph.
 
 Link to the RNN KITTI trained model (graph): http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz
