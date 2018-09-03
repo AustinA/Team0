@@ -3,7 +3,7 @@
 
 Using the object detection TensorFlow library to prioritize detected objects using lidar and video input
 
-##  PretrainedKittiObjectsDetectionExample
+## PretrainedObjectDetectionExample
 
 Uses pretrained TensorFlow models and labels to detect objects in stationary images, and outputs a corresponding label and certainty to the image.
 
