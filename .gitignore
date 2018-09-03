@@ -6,23 +6,23 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
-PretrainedKittiObjectDetectionExample/.idea/**/workspace.xml
-PretrainedKittiObjectDetectionExample/.idea/**/tasks.xml
-PretrainedKittiObjectDetectionExample/.idea/**/usage.statistics.xml
-PretrainedKittiObjectDetectionExample/.idea/**/dictionaries
-PretrainedKittiObjectDetectionExample/.idea/**/shelf
+PretrainedObjectDetectionExample/.idea/**/workspace.xml
+PretrainedObjectDetectionExample/.idea/**/tasks.xml
+PretrainedObjectDetectionExample/.idea/**/usage.statistics.xml
+PretrainedObjectDetectionExample/.idea/**/dictionaries
+PretrainedObjectDetectionExample/.idea/**/shelf
 
 # Generated files
-PretrainedKittiObjectDetectionExample/.idea/**/contentModel.xml
+PretrainedObjectDetectionExample/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-PretrainedKittiObjectDetectionExample/.idea/**/dataSources/
-PretrainedKittiObjectDetectionExample/.idea/**/dataSources.ids
-PretrainedKittiObjectDetectionExample/.idea/**/dataSources.local.xml
-PretrainedKittiObjectDetectionExample/.idea/**/sqlDataSources.xml
-PretrainedKittiObjectDetectionExample/.idea/**/dynamic.xml
-PretrainedKittiObjectDetectionExample/.idea/**/uiDesigner.xml
-PretrainedKittiObjectDetectionExample/.idea/**/dbnavigator.xml
+PretrainedObjectDetectionExample/.idea/**/dataSources/
+PretrainedObjectDetectionExample/.idea/**/dataSources.ids
+PretrainedObjectDetectionExample/.idea/**/dataSources.local.xml
+PretrainedObjectDetectionExample/.idea/**/sqlDataSources.xml
+PretrainedObjectDetectionExample/.idea/**/dynamic.xml
+PretrainedObjectDetectionExample/.idea/**/uiDesigner.xml
+PretrainedObjectDetectionExample/.idea/**/dbnavigator.xml
 
 # Gradle
 .idea/**/gradle.xml
@@ -40,7 +40,7 @@ PretrainedKittiObjectDetectionExample/.idea/**/dbnavigator.xml
 cmake-build-*/
 
 # Mongo Explorer plugin
-PretrainedKittiObjectDetectionExample/.idea/**/mongoSettings.xml
+PretrainedObjectDetectionExample/.idea/**/mongoSettings.xml
 
 # File-based project format
 *.iws
@@ -64,7 +64,7 @@ crashlytics-build.properties
 fabric.properties
 
 # Editor-based Rest Client
-PretrainedKittiObjectDetectionExample/.idea/httpRequests
+PretrainedObjectDetectionExample/.idea/httpRequests
 
 ### PyCharm Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
@@ -75,7 +75,7 @@ PretrainedKittiObjectDetectionExample/.idea/httpRequests
 # *.ipr
 
 # Sonarlint plugin
-PretrainedKittiObjectDetectionExample/.idea/sonarlint
+PretrainedObjectDetectionExample/.idea/sonarlint
 
 
 # End of https://www.gitignore.io/api/pycharm

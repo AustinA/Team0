@@ -1,32 +1,32 @@
 #!/usr/bin/env python
 
 """
-Uses the TensorFlow API object detection API and the pre-trained R-CNN neural network from the model zoo
-to box cars and pedestrians from input images, writing them to an output file.
+Uses the TensorFlow API object detection API and any pre-trained neural network from the model zoo
+to detect objects from input images, boxing their outline and writing it to an output file.
 """
 __author__ = "Austin Alderton"
 
+import csv
 import glob
+import os
 
 import numpy as np
 import tensorflow as tf
 from PIL import Image
-from object_detection.utils import label_map_util
 from object_detection.utils import ops as utils_ops
 from object_detection.utils import visualization_utils as vis_util
-import os
 
 # Constants
-MODEL_NAME = "faster_rcnn_resnet101_kitti_2018_01_28"
-PATH_TO_FROZEN_GRAPH = MODEL_NAME + "/frozen_inference_graph.pb"
-PATH_TO_LABELS = MODEL_NAME + "/kitti_label_map.pbtxt"
+MODEL_NAME = "uah-signs-50k"
+PATH_TO_FROZEN_GRAPH = MODEL_NAME + "/model_50k.pb"
+PATH_TO_LABELS = MODEL_NAME + "/labels.csv"
 
 
 # Main subroutine.  Loads the model (graph) and its categories, and loops through each input image to apply the
 # output boxes to them through the results of the provided model (graph). The files are then written to output.
 def main():
     detection_graph = load_model()
-    category_index = load_label()
+    category_index = load_colloquial_labels()
 
     # For every jpg in the img/ directory
     for file_name in glob.glob('img/*.jpg'):
@@ -61,11 +61,13 @@ def load_model():
 
 
 # Load the labels of the provided graph.
-def load_label():
-    label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
-    categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=30, use_display_name=True)
-    categories_index = label_map_util.create_category_index(categories)
-    return categories_index
+def load_colloquial_labels():
+    labels = {}
+    with open(PATH_TO_LABELS, 'r') as csv_file:
+        lbl_reader = csv.reader(csv_file, delimiter=',')
+        for row in lbl_reader:
+            labels[int(row[0])] = dict(id=row[0], name=row[2])
+    return labels
 
 
 # Call the tensors to process the images using the graph.
