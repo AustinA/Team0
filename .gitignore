@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+PretrainedObjectDetectionExample/.idea/
 PretrainedObjectDetectionExample/.idea/**/workspace.xml
 PretrainedObjectDetectionExample/.idea/**/tasks.xml
 PretrainedObjectDetectionExample/.idea/**/usage.statistics.xml
@@ -16,6 +17,7 @@ PretrainedObjectDetectionExample/.idea/**/shelf
 PretrainedObjectDetectionExample/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
+PretrainedObjectDetectionExample/.idea/
 PretrainedObjectDetectionExample/.idea/**/dataSources/
 PretrainedObjectDetectionExample/.idea/**/dataSources.ids
 PretrainedObjectDetectionExample/.idea/**/dataSources.local.xml
@@ -25,6 +27,7 @@ PretrainedObjectDetectionExample/.idea/**/uiDesigner.xml
 PretrainedObjectDetectionExample/.idea/**/dbnavigator.xml
 
 # Gradle
+.idea/
 .idea/**/gradle.xml
 .idea/**/libraries
 
@@ -88,6 +91,7 @@ PretrainedObjectDetectionExample/.idea/sonarlint
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # User-specific stuff
+ConcurrentObjectDetection/.idea/
 ConcurrentObjectDetection/.idea/**/workspace.xml
 ConcurrentObjectDetection/.idea/**/tasks.xml
 ConcurrentObjectDetection/.idea/**/usage.statistics.xml
