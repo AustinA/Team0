@@ -24,3 +24,10 @@ Modify the appropriate constants at the top of main.py.
 
 Link to the RNN KITTI trained model (graph): http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz
 
+
+## VideoObjectDetection
+
+Uses a pretrained TensorFlow model and labels to detect objects from live video.
+
+Performs object detection through TensorFlow on input from a camera. Depends on opencv-python, which can be installed using pip.
+
