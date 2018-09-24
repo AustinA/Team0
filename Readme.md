@@ -10,7 +10,7 @@ Uses pretrained TensorFlow models and labels to detect objects in stationary ima
 For this project to work, download a frozen pre-trained model model (graph), and unzip its content.
 Modify the appropriate constants at the top of main.py.
 
-Link to the RNN KITTI trained model (graph): http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz
+The labeling for this project uses a .csv format. The corresponding label files and frozen inference graphs can be found on the Team 0 Google Drive.
 
 ## ConcurrentObjectDetection
 
@@ -22,7 +22,7 @@ results into a single output.  In our use case, a car and pedestrian detector ru
 For this project to work, download a frozen pre-trained model model (graph), and unzip its content.
 Modify the appropriate constants at the top of main.py.
 
-Link to the RNN KITTI trained model (graph): http://download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_kitti_2018_01_28.tar.gz
+The labeling for this project uses a .csv format. The corresponding label files and frozen inference graphs can be found on the Team 0 Google Drive.
 
 
 ## VideoObjectDetection
