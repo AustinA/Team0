@@ -27,7 +27,7 @@ def visualize_output(cv2, image_to_show, boxes, classes, scores, category_indice
         line_thickness=8)
 
     # Display output for fun
-    cv2.imshow('object detection', cv2.resize(image_to_show, (800, 600)))
+    cv2.imshow('object detection', cv2.resize(image_to_show, (1920, 1200)))
 
 
 def wait_for_q(cv2):

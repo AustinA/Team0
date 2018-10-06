@@ -5,8 +5,18 @@ from constants import constants
 import numpy as np
 import cv2
 
+"""
+Main Program for CPE 656 Team 0.
+
+Fuses lidar and image data to generate velocity vectors of detected objects.
+"""
+
 
 def main():
+    """
+    Main loop.
+    :return: Nothing.
+    """
     # Initialize the OpenCV capture
     camera = camera_utils.initialize_camera(0)
 
@@ -32,7 +42,7 @@ def execute_session(session, camera, category_index):
     Runs a session of Tensor flow on a particular image frame.
 
     :param session: The session to run
-    :param capture: The camera instance to pull information from.
+    :param camera: The camera instance to pull information from.
     :param category_index: Numerical representation of the detection classifications.
     """
 
@@ -41,6 +51,7 @@ def execute_session(session, camera, category_index):
         image = camera.retrieveBuffer()
 
         image_np = camera_utils.numpy_image_from_camera_image(image)
+        image_np = cv2.cvtColor(image_np, cv2.COLOR_BAYER_BG2BGR)
 
         # Expand dimensions since the model expects images to have shape: [1, None, None, 3]
         image_np_expanded = np.expand_dims(image_np, axis=0)
