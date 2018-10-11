@@ -41,6 +41,10 @@ void VelodyneUDPSocket::Data()
     {
         QNetworkDatagram datagram = socket->receiveDatagram();
         QByteArray byteArray = datagram.data();
+        if(byteArray.size() != 1206)
+        {
+            return;
+        }
         QDataStream ds(byteArray);
         Team0::VelodynePacket packet;
         for(auto &unformatted : packet.unformatted)
@@ -49,6 +53,6 @@ void VelodyneUDPSocket::Data()
         }
         data->PushNewPacket(packet);
 
-        std::cout << data->_active_frame.points.size() << std::endl;
+//        std::cout << data->_active_frame.points.size() << std::endl;
     }
 }
