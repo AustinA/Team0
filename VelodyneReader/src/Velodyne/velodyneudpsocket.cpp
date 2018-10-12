@@ -43,12 +43,16 @@ void VelodyneUDPSocket::Data()
         QByteArray byteArray = datagram.data();
         QDataStream ds(byteArray);
         Team0::VelodynePacket packet;
-        for(auto &unformatted : packet.unformatted)
+        for(int i = 0; i < Team0::ShortPacketSize; i ++)
         {
-            ds >> unformatted;
+            ds >> packet.unformatted[i];
         }
+//        for(uint16_t &unformatted : packet.unformatted)
+//        {
+//            ds >> unformatted;
+//        }
         data->PushNewPacket(packet);
 
-        std::cout << data->_active_frame.points.size() << std::endl;
+//        std::cout << data->_active_frame.points.size() << std::endl;
     }
 }

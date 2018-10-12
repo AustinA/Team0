@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
 
     using clock = std::chrono::steady_clock;
 
+    Team0::VelodyneDecodedData *data = &Singleton<Team0::VelodyneDecodedData>::Instance();
+
     VelodyneSocketWrapper socket;
     socket.Start();
 
@@ -29,8 +31,15 @@ int main(int argc, char *argv[])
 
 
 //    socket.Start();
-    std::this_thread::sleep_for(std::chrono::seconds(1));
-    socket.Stop();
+    while(1)
+    {
+        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+        std::cout << "Total Frames collected: " << data->frames.size()
+                  << "Active Frame: " << data->_active_frame.points.size()
+                  << std::endl;
+    }
+
+//    socket.Stop();
 
 //    socket.Stop();
 

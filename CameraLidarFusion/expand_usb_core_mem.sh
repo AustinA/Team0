@@ -4,4 +4,4 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 echo "Adding more usbcore buffer memory..."
-echo 1024 > /sys/module/usbcore/parameters/usbfs_memory_mb
+echo 12096 > /sys/module/usbcore/parameters/usbfs_memory_mb

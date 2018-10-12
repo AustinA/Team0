@@ -42,7 +42,7 @@ struct __attribute__((packed))  LazerReturn
 struct __attribute__((packed)) FiringBlock
 {
     Block Flag;
-    int16_t azimuth;
+    uint16_t azimuth;
 
     LazerReturn channelData1[LASER_FIRINGS];
 };
@@ -126,9 +126,10 @@ public:
     }
 
 
-    auto Get(int location)
+    auto Get(unsigned short location)
     {
         assert(location < NUM_ROT_ANGLES);
+//        assert(location > 0);
 
         return data[location];
     }

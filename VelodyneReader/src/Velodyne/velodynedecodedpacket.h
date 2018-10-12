@@ -128,7 +128,7 @@ class VelodyneDecodedData
 {
 public:
     VelodyneDecodedLazerFrame _active_frame;
-    std::vector<VelodyneDecodedLazerFrame> frames;
+    std::deque<VelodyneDecodedLazerFrame> frames;
 
     VelodyneDecodedData() = default;
 
@@ -140,9 +140,9 @@ public:
 
             if(firing.azimuth < _last_azimuth)
             {
-                std::cout << "Test: " << _active_frame.points.size() << std::endl;
+//                std::cout << "Test: " << _active_frame.points.size() << std::endl;
                 frames.push_back(_active_frame);
-                std::cout << "Test: " << _active_frame.points.size() << std::endl;
+//                std::cout << "Test: " << _active_frame.points.size() << std::endl;
                 _active_frame.Clear();
             }
 
@@ -182,22 +182,23 @@ int16_t _last_azimuth;
 Correction lazerCorrections[LASER_COUNT];
 
 
-double CalcSin(int id, int azimuth)
+double CalcSin(int id, uint16_t azimuth)
 {
-    if(lazerCorrections[id].azimuth == 0)
-    {
-        return SinLookupTable::Instance().Get(azimuth);
-    }
+//    if(lazerCorrections[id].azimuth == 0)
+//    {
+////        auto sinLookup = ;
+//        return SinLookupTable::Instance().Get(azimuth);
+//    }
 
     return std::sin(HDLToRadians(azimuth) - lazerCorrections[id].azimuth);
 }
 
-double CalcCos(int id, int azimuth)
+double CalcCos(int id, uint16_t azimuth)
 {
-    if(lazerCorrections[id].azimuth == 0)
-    {
-        return CosLookupTable::Instance().Get(azimuth);
-    }
+//    if(lazerCorrections[id].azimuth == 0)
+//    {
+//        return CosLookupTable::Instance().Get(azimuth);
+//    }
 
     return std::cos(HDLToRadians(azimuth) - lazerCorrections[id].azimuth);
 }
@@ -206,7 +207,7 @@ double CalcCos(int id, int azimuth)
 
 struct VelodyneDataStore
 {
-    std::vector<VelodyneDecodedData> data;
+    std::deque<VelodyneDecodedData> data;
 
 //    void
 };

@@ -2,8 +2,9 @@
 import tensorflow as tf
 from utils import graph_utils, visualization_utils, camera_utils
 from constants import constants
-import numpy as np
 import cv2
+import time
+import numpy as np
 
 """
 Main Program for CPE 656 Team 0.
@@ -47,6 +48,7 @@ def execute_session(session, camera, category_index):
     """
 
     while True:
+        time1 = time.time()
         # Create a numpy image
         image = camera.retrieveBuffer()
 
@@ -76,6 +78,11 @@ def execute_session(session, camera, category_index):
         # Wait for q to close the window
         if visualization_utils.wait_for_q(cv2):
             break
+
+        time2 = time.time()
+        print("Time elapsed:  " + str(time2 - time1))
+
+
 
 
 if __name__ == '__main__':

@@ -7,7 +7,7 @@ struct Singleton
 
     /// call with:
     /// T* myThing = &Singleton<T>::Instance();
-    static auto Instance()
+    static auto &Instance()
     {
         static T single;
         return single;

@@ -1,5 +1,6 @@
 from object_detection.utils import visualization_utils as vis_util
 import numpy as np
+from constants import constants
 
 """
 Helper methods to visualize output to a OpenCV instances to display the computer vision to the user
@@ -27,7 +28,7 @@ def visualize_output(cv2, image_to_show, boxes, classes, scores, category_indice
         line_thickness=8)
 
     # Display output for fun
-    cv2.imshow('object detection', cv2.resize(image_to_show, (1920, 1200)))
+    cv2.imshow('object detection', cv2.resize(image_to_show, (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT)))
 
 
 def wait_for_q(cv2):
