@@ -165,3 +165,6 @@ ConcurrentObjectDetection/.idea/sonarlint
 
 
 # End of https://www.gitignore.io/api/pycharm
+*.o
+
+VelodyneReader/Tests/build-InitialTest-Desktop_Qt_5_11_2_clang_64bit-Debug/InitialTest

@@ -41,6 +41,10 @@ void VelodyneUDPSocket::Data()
     {
         QNetworkDatagram datagram = socket->receiveDatagram();
         QByteArray byteArray = datagram.data();
+        if(byteArray.size() != 1206)
+        {
+            return;
+        }
         QDataStream ds(byteArray);
         Team0::VelodynePacket packet;
         for(int i = 0; i < Team0::ShortPacketSize; i ++)

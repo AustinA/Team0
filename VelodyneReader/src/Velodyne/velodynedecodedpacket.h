@@ -30,6 +30,20 @@ struct VelodyneDecodedLazerPoint
 
     }
 
+    VelodyneDecodedLazerPoint() = default;
+
+    VelodyneDecodedLazerPoint(
+            const VelodyneDecodedLazerPoint& other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        distance = other.distance;
+        intensity = other.intensity;
+        lazer_id = other.lazer_id;
+        azimuth = other.azimuth;
+        timestamp = other.timestamp;
+    }
 
     VelodyneDecodedLazerPoint& operator=(
             const VelodyneDecodedLazerPoint& other)
@@ -45,6 +59,35 @@ struct VelodyneDecodedLazerPoint
         return *this;
     }
 
+    VelodyneDecodedLazerPoint(
+            VelodyneDecodedLazerPoint&& other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        distance = other.distance;
+        intensity = other.intensity;
+        lazer_id = other.lazer_id;
+        azimuth = other.azimuth;
+        timestamp = other.timestamp;
+        other.Clear();
+    }
+
+    VelodyneDecodedLazerPoint& operator=(
+            VelodyneDecodedLazerPoint&& other)
+    {
+        x = other.x;
+        y = other.y;
+        z = other.z;
+        distance = other.distance;
+        intensity = other.intensity;
+        lazer_id = other.lazer_id;
+        azimuth = other.azimuth;
+        timestamp = other.timestamp;
+        other.Clear();
+        return *this;
+    }
+
 };
 
 struct VelodyneDecodedLazerFrame
@@ -52,11 +95,6 @@ struct VelodyneDecodedLazerFrame
     void Clear()
     {
         points.clear();
-//        for(auto & p : points)
-//        {
-//            p.Clear();
-//        }
-//        max = 0;
     }
 
     void Append(const VelodyneDecodedLazerPoint &f)
@@ -109,17 +147,8 @@ struct VelodyneDecodedLazerFrame
     }
 
 
-//    void Append(const VelodyneDecodedLazerPoint &f)
-//    {
-//        if(max < max_points)
-//        {
-//            points[max] = f;
-//            max++;
-//        }
-//    }
-
     static constexpr int max_points = 1024;
-    std::vector<VelodyneDecodedLazerPoint> points;
+    std::deque<VelodyneDecodedLazerPoint> points;
 //    std::array<VelodyneDecodedLazerPoint, max_points> points;
 //    int max = 0;
 };
@@ -130,8 +159,6 @@ public:
     VelodyneDecodedLazerFrame _active_frame;
     std::deque<VelodyneDecodedLazerFrame> frames;
 
-    VelodyneDecodedData() = default;
-
     void PushNewPacket(const VelodynePacket &packet)
     {
         for(const FiringBlock & firing : packet.formated.lazer_firing_blocks)
@@ -140,9 +167,8 @@ public:
 
             if(firing.azimuth < _last_azimuth)
             {
-//                std::cout << "Test: " << _active_frame.points.size() << std::endl;
+                std::cout << "Test: " << _active_frame.points.size() << std::endl;
                 frames.push_back(_active_frame);
-//                std::cout << "Test: " << _active_frame.points.size() << std::endl;
                 _active_frame.Clear();
             }
 
@@ -151,8 +177,19 @@ public:
             int i = 0;
             for(const LazerReturn & lazer : firing.channelData1)
             {
+
+                VelodyneDecodedLazerPoint point;
                 uint8_t lazerID = (i++) + offset;
-                const Correction &corr = lazerCorrections[lazerID];
+                Correction corr;
+                try
+                {
+                    corr = lazerCorrections.at(lazerID);
+                }
+                catch(std::exception &e)
+                {
+                    std::cout << "Out of bounds lazer id: " << e.what()
+                              << " \nLazerID: " << lazerID << std::endl;
+                }
 
                 double sinAzimuth = CalcSin(lazerID, firing.azimuth);
                 double cosAzimuth = CalcCos(lazerID, firing.azimuth);
@@ -160,45 +197,45 @@ public:
                 double distanceM = lazer.distance * 0.002 + corr.distance;
                 double xyDistance = distanceM * corr.cosVert - corr.sinVertOffset;
 
-                double x =  (xyDistance * sinAzimuth - corr.horizontalOffset * cosAzimuth);
-                double y = (xyDistance * cosAzimuth + corr.horizontalOffset * sinAzimuth);
-                double z = (distanceM * corr.sinVert + corr.cosVertOffset);
-
                 uint8_t intensity = lazer.intensity;
-                _active_frame.Append( VelodyneDecodedLazerPoint{
-                                          x, y, z, distanceM, intensity,
-                                          lazerID, firing.azimuth,
-                                          packet.formated.tail.timestamp
-                                      });
 
+                point.distance = distanceM * corr.cosVert - corr.sinVertOffset;;
+
+                point.azimuth = firing.azimuth;
+                point.intensity = lazer.intensity;
+                point.lazer_id = lazerID;
+                point.timestamp = packet.formated.tail.timestamp;
+                point.x =  (xyDistance * sinAzimuth - corr.horizontalOffset * cosAzimuth);
+                point.y = (xyDistance * cosAzimuth + corr.horizontalOffset * sinAzimuth);
+                point.z = (distanceM * corr.sinVert + corr.cosVertOffset);
+
+                _active_frame.points.push_back(point);
             }
-
         }
     }
 
 private:
 
-int16_t _last_azimuth;
-Correction lazerCorrections[LASER_COUNT];
+int16_t _last_azimuth = 0;
+std::array<Correction, LASER_COUNT>lazerCorrections;
 
 
-double CalcSin(int id, uint16_t azimuth)
+double CalcSin(int id, int azimuth)
 {
-//    if(lazerCorrections[id].azimuth == 0)
-//    {
-////        auto sinLookup = ;
-//        return SinLookupTable::Instance().Get(azimuth);
-//    }
+    if(lazerCorrections[id].azimuth <= 0)
+    {
+        return SinLookupTable::Instance().Get(azimuth);
+    }
 
     return std::sin(HDLToRadians(azimuth) - lazerCorrections[id].azimuth);
 }
 
-double CalcCos(int id, uint16_t azimuth)
+double CalcCos(int id, int azimuth)
 {
-//    if(lazerCorrections[id].azimuth == 0)
-//    {
-//        return CosLookupTable::Instance().Get(azimuth);
-//    }
+    if(lazerCorrections[id].azimuth <= 0)
+    {
+        return CosLookupTable::Instance().Get(azimuth);
+    }
 
     return std::cos(HDLToRadians(azimuth) - lazerCorrections[id].azimuth);
 }
@@ -207,7 +244,7 @@ double CalcCos(int id, uint16_t azimuth)
 
 struct VelodyneDataStore
 {
-    std::deque<VelodyneDecodedData> data;
+    std::vector<VelodyneDecodedData> data;
 
 //    void
 };
