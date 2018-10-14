@@ -7,7 +7,7 @@ Helper methods to visualize output to a OpenCV instances to display the computer
 """
 
 
-def visualize_output(cv2, image_to_show, boxes, classes, scores, category_indices):
+def visualize_output(cv2, image_to_show, boxes, classes, scores, category_indices, camera_id):
     """
     Visualizes output to the user through a OpenCV window
     :param cv2: Instance of OpenCV
@@ -28,7 +28,7 @@ def visualize_output(cv2, image_to_show, boxes, classes, scores, category_indice
         line_thickness=8)
 
     # Display output for fun
-    cv2.imshow('object detection', cv2.resize(image_to_show, (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT)))
+    cv2.imshow("Camera #" + camera_id, cv2.resize(image_to_show, (constants.IMAGE_WIDTH, constants.IMAGE_HEIGHT)))
 
 
 def wait_for_q(cv2):
