@@ -27,6 +27,6 @@ sudo apt-get install libpcap0.8-dev
 cd ~/AppDev/pcl
 mkdir release
 cd release
-cmake -DCMAKE_BUILD_TYPE=None -DBUILD_GPU=ON -DBUILD_apps=ON -DBUILD_examples=ON ..
+cmake -DCMAKE_BUILD_TYPE=None -DBUILD_GPU=OFF -DBUILD_apps=ON -DBUILD_examples=ON ..
 make
 sudo make install
