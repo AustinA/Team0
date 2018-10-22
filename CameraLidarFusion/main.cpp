@@ -1,5 +1,9 @@
 #include <Python.h>
 #include <iostream>
+#include "/home/team0/.local/lib/python3.5/site-packages/numpy/core/include/numpy/arrayobject.h"
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 int main(int argc, char *argv[])
 {
     // Initialize the Python Interpreter
@@ -39,8 +43,27 @@ int main(int argc, char *argv[])
                      && executeSession2 && PyCallable_Check(executeSession2))
                 {
 
-                    PyObject_CallObject(executeSession1, executeArg1);
-                    PyObject_CallObject(executeSession2, executeArg2);
+                    PyObject* ex1ret = PyObject_CallObject(executeSession1, executeArg1);
+
+                    PyArrayObject* image_ret = reinterpret_cast<PyArrayObject*>(ex1ret);
+
+                    // The dimensions of the image
+                    npy_intp* dims = image_ret->dimensions;
+                    int image_height_dim = dims[0];
+                    int image_width_dim = dims[1];
+                    int image_color_dim = dims[2];
+
+                    // NOT WORKING
+                    cv::Mat* theImage = new cv::Mat(image_height_dim, image_width_dim, CV_8UC3,  (void*) image_ret->data, 3);
+                    std::cout << "Got passed created image" << std::endl;
+                    cv::namedWindow( "Display window", cv::WINDOW_AUTOSIZE );// Create a window for display.
+                    std::cout << "Got passed named Window" << std::endl;
+                    cv::imshow( "Display window", cv::InputArray(theImage) );
+
+
+
+
+                    //PyObject* ex2ret = PyObject_CallObject(executeSession2, executeArg2);
 
                     windowCheck = PyObject_CallObject(exitWindowTest, exitWindowArg);
 

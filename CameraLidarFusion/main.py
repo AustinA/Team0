@@ -98,6 +98,8 @@ def execute_session(camera_id):
         time2 = time.time()
         print("Camera #" + camera_id + " time: " + str(time2 - time1))
 
+        return image_np
+
 
 def window_terminated_requested():
     """
